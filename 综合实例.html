@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue综合实例</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style media="screen">
+        #con{
+            background:pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <div class="col-xs-6 col-xs-offset-3">
+       <!--使格居中 offset3代表向右移动3个格-->
+           <h1>vue demo</h1>
+           <table class="table table-bordered table-hover">
+              <tr>
+               <th>序号</th>
+               <th>书名</th>
+               <th>作者</th>
+               <th>价格</th>
+               <th>操作</th>
+              </tr>
+              <tr v-for="book in books">
+                  <td>{{book.id}}</td>
+                  <td>{{book.name}}</td>
+                  <td>{{book.author}}</td>
+                  <td>{{book.price}}</td>
+                  <td><button type="button" class="btn btn-danger" @click="del(book)">删除</button></td>
+              </tr>
+            </table>
+            <div id="add">
+                <legend>添加书籍</legend>
+                <form>
+          <div class="form-group">
+              <label for="name">书名</label>
+             <input type="text" class="form-control" id="name" placeholder="请输入书名" v-model="book.name">
+         </div>
+         <div class="form-group">
+            <label for="author">作者</label>
+            <input type="text" class="form-control" id="author" placeholder="请输入作者名字" v-model="book.author">
+         </div>
+        <div class="form-group">
+            <label for="price">价格</label>
+            <input type="text" id="price" placeholder="请输入价格" v-model="book.price" class="form-control">
+       </div>
+      <button class="btn btn-block btn-success" type="button" v-on:click="add()">添加</button>
+     </form>
+        </div>
+       </div>
+     </div>
+</body>
+
+<script type="text/javascript">
+      var vue=new Vue({
+        el:'#app',
+        data: {
+           book:{id:0,name:"",author:"",price:""},
+           books:[
+           {id:1,name:"红楼梦",author:"曹雪芹",price:32},
+           {id:2,name:"水浒传",author:"施耐庵",price:32},
+           {id:3,name:"三国演义",author:"罗贯中",price:32},
+           {id:4,name:"西游记",author:"吴承恩",price:32}
+           ]
+        },
+        methods:{
+            del:function(book){
+               var index=this.books.indexOf(book);
+               this.books.splice(index,1);},
+               add:function(){
+            this.book.id=this.books.length+1;
+            this.books.push(this.book);
+            this.book={
+                id:0,name:'',author:'',price:''
+            }
+        }
+        }
+        
+     
+        
+    })
+</script>
+</html>
